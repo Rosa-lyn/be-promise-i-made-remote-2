@@ -1,4 +1,4 @@
-# Promises. Promises
+# Promises, Promises
 
 You are in charge of creating a new improved version of Spotify.
 
@@ -12,10 +12,9 @@ You should use Insomnia to make requests to your api and make sure you are sendi
 
 To get started go to the [nc-spotify server](https://nc-spotify.herokuapp.com/) and get familiar with the endpoints available. On the site there is a readme to help navigate around the endpoints but in general the endpoints are:
 
-
-* `/<resource_name>/` - to interact with all of a resource e.g. albums
-* `/<resource_name>/<resource_id` - to interact with a specific resource e.g. album by id
-* `/resource_name?query=value` to interact with a specific resource by any other identifier than id e.g. by chart_position.
+- `/<resource_name>/` - to interact with all of a resource e.g. albums
+- `/<resource_name>/<resource_id>` - to interact with a specific resource e.g. album by id
+- `/<resource_name>?query=value` to interact with a specific resource by any other identifier than id e.g. by chart_position.
 
 ### 1. GET all albums
 
@@ -39,17 +38,17 @@ To get started go to the [nc-spotify server](https://nc-spotify.herokuapp.com/) 
 {
   "songs": [
     {
-      "id":1
+      "song_id":1
       "title": "Find No Enemy",
-      "artistId": 1,
-      "albumId": 0,
+      "artist_id": 1,
+      "album_id": 0,
       "chart_position": 0
     },
     {
-      "id":2
+      "song_id":2
       "title": "Baby Shark",
-      "artistId": 2,
-      "albumId": 3,
+      "artist_id": 2,
+      "album_id": 3,
       "chart_position": 0
     }...
 ```
@@ -58,16 +57,17 @@ To get started go to the [nc-spotify server](https://nc-spotify.herokuapp.com/) 
 
 Your endpoint should be able to accept the following queries:
 
-* `?title` - think how you can account for spaces in your query
-* `?artist_id`
-* `?album_id`
-* `?chart_position`
+- `?title` - think how you can account for spaces in your query
+- `?artist_id`
+- `?album_id`
+- `?chart_position`
 
-- _NOTE: treat this task as if you were using a production database with millions of entries. Be wary of fetching too much data just to filter it down. Consider what queries the server we are contacting can take._
+* _NOTE: treat this task as if you were using a production database with millions of entries. Be wary of fetching too much data just to filter it down. Consider what queries the server we are contacting can take._
 
 ADVANCED: Make this endpoint chainable (e.g. `album_id` AND `chart_position`)
 
 - _HINT: if are doing the advanced option have a look at the [axios documentation](https://github.com/axios/axios#example) for making requests with queries._
+
 ```js
 // ?album=3
 {
@@ -75,8 +75,8 @@ ADVANCED: Make this endpoint chainable (e.g. `album_id` AND `chart_position`)
     {
       "id":2
       "title": "Baby Shark",
-      "artistId": 4,
-      "albumId": 3,
+      "artist_id": 4,
+      "album_id": 3,
       "chart_position": 0
     }
   ]
@@ -90,10 +90,10 @@ ADVANCED: Make this endpoint chainable (e.g. `album_id` AND `chart_position`)
 ```js
 {
   "song": {
-    "id": 1,
+    "song_id": 1,
     "title": "Find No Enemy",
-    "artistId": 1,
-    "albumId": 1,
+    "artist_id": 1,
+    "album_id": 1,
     "chart_position": 5
   }
 }
@@ -104,7 +104,7 @@ ADVANCED: Make this endpoint chainable (e.g. `album_id` AND `chart_position`)
 ```js
 // status 404 and
 {
-  msg: 'Song not found'
+  msg: 'Song not found';
 }
 ```
 
@@ -144,20 +144,20 @@ ADVANCED: Make this endpoint chainable (e.g. `album_id` AND `chart_position`)
 ```json
 {
   "title": "your new album title",
-  "artistId": "your new artist Id"
+  "artist_id": "your new artist ID"
 }
 ```
 
 - You should validate information from the user is correct before posting. If things go terribly wrong tutors can reset the database from scratch so let them know!
 
-- You should send an appropriate status code to the client with a response like below
+- You should send an appropriate status code to the client with a response like below:
 
 ```js
 {
   album: {
     id: 'your new album id',
     title:'your added album title',
-    artistId: 'your added artist Id'
+    artist_id: 'your added artist ID'
     added: true
   }
 }
@@ -165,7 +165,7 @@ ADVANCED: Make this endpoint chainable (e.g. `album_id` AND `chart_position`)
 
 ### 7. PATCH a song's chart position
 
-- This endpoint should take song identifier as a parametric value in the url and a value to change the chart position by on the request body e.g.
+- This endpoint should take song identifier as a parametric value in the url and a value to change the chart position by on the request body, e.g.
 
 ```json
 {
@@ -198,25 +198,25 @@ Some example errors that could occur:
 
 ## DAY 2 - Using Promise.all
 
-### 1. Refactor getting a song's lyrics (Day 1 task 4) to send the song object and its lyrics all at once to send together on the response in the following format:
+### 1. Refactor GET analysis for a song (Day 1 task 5) to get both the lyrics **and** the analysis.
+
+- _HINT: you don't need to wait for the lyrics to come back before you get the analysis_
+
+### 2. Refactor getting a song's lyrics (Day 1 task 4) to send the song object and its lyrics all at once to send together on the response in the following format:
 
 ```js
 {
   "song": {
     "title": "Single Ladies",
-    "artist": "Beyonce",
-    "album": "I am Sasha Fierce",
+    "artist_id": 2,
+    "album_id": 2,
     "chart_position": 2
   },
   "lyrics": `"gettin' bodied\n(If you ready, get it ready) gettin' bodied\n(Let's get it and drop it) hey\nGive it up for my sister!\nAll right now\nEverybody put your hands together\nDo we have any single ladies in the house tonight?\nsing\nAll the single ladies (All the single ladies)\nAll the single ladies (All the single ladies)\nAll the s..."`
 }
 ```
 
-### 2. Refactor GET analysis for a song (Day 1 task 5) to get the lyrics and the analysis
-
-- _HINT: you don't need to wait for the lyrics to come back before you get the analysis_
-
-### 3. Refactor getting a song by track_id (Day 1 task 3) to replace the album number with the album title (You may need to make a second request for that particular album).
+### 3. Refactor getting a song by its id (Day 1 task 3) to replace the album ID with the album title and artist ID with artist name, like so:
 
 ```js
 {
@@ -229,9 +229,11 @@ Some example errors that could occur:
 }
 ```
 
+- _HINT: you will have to make separate requests for the album and the artist_
+
 ### 4.a ADVANCED -- make an endpoint that will take the newData.txt file on the request body and post it to the database
 
-- This endpoint should make use of `fs` and the `Promise` constructor
+- _HINT: this endpoint should make use of `fs` and the `Promise` constructor_
 
 ### 4.b (Optional) extra ADVANCED - get all songs and replace all album numbers with album titles
 
