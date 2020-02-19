@@ -22,10 +22,15 @@ To get started go to the [nc-spotify server](https://nc-spotify-jams.herokuapp.c
 ```js
 {
   "albums": [
-    "10 Years of Akala",
-    "I am Sasha Fierce",
-    "A Night at the Opera",
-    "Youtube Best Hits"
+    {
+      "title": "10 Years of Akala",
+      "artwork": "http://images.genius.com/bd174bbb42265536ee1741370f5dc593.600x600x1.jpg"
+    },
+    {
+      "title": "I Am... Sasha Fierce",
+      "artwork": "https://upload.wikimedia.org/wikipedia/en/9/96/I_Am..._Sasha_Fierce.png"
+    },
+    ...
   ]
 }
 ```
