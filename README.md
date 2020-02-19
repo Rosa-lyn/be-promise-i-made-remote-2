@@ -2,19 +2,17 @@
 
 You are in charge of creating a new improved version of Spotify.
 
-You will be creating an api built upon "Spotify data". You will allow users to request songs and lyrics. You will also add some new services like analysing song lyrics and allowing users to place their favourite songs at number 1 in the charts.
+You will be creating an api built upon "Spotify data". You will allow users to request songs and lyrics. You will also add some new services like analysing song lyrics and allowing users to place their favourite songs at number 1 in the charts. You will find that data which comes back from `nc-spotify-jams` will be in an overly complicated structure. You will need to ensure you are sending back the data in the correct format as written in this README.
 
-To achieve this you have an api serving you Spotify data (our very own `nc-spotify`). This api serves up songs, albums, artists and more. You can use a variety of HTTP methods `GET`/`POST`/`PATCH`/`DELETE` on these endpoints. You will build your own api that should interact with `nc-spotify` using the promise based library [`axios`](https://github.com/axios/axios) to make http requests.
+To achieve this you have an api serving you Spotify data (our very own `nc-spotify`). This api serves up songs, albums, artists and more. You can use a variety of HTTP methods `GET`/`POST`/`PATCH` on these endpoints. You will build your own api that should interact with `nc-spotify-jams` using the promise based library [`axios`](https://github.com/axios/axios) to make http requests.
 
 You should use Insomnia to make requests to your api and make sure you are sending back the appropriate responses.
 
 ## DAY 1
 
-To get started go to the [nc-spotify server](https://nc-spotify.herokuapp.com/) and get familiar with the endpoints available. On the site there is a readme to help navigate around the endpoints but in general the endpoints are:
+To get started go to the [nc-spotify server](https://nc-spotify-jams.herokuapp.com/) and get familiar with the endpoints available. On the site there is a readme to help navigate around the endpoints.
 
-- `/<resource_name>/` - to interact with all of a resource e.g. albums
-- `/<resource_name>/<resource_id>` - to interact with a specific resource e.g. album by id
-- `/<resource_name>?query=value` to interact with a specific resource by any other identifier than id e.g. by chart_position.
+
 
 ### 1. GET all albums
 
@@ -73,7 +71,7 @@ ADVANCED: Make this endpoint chainable (e.g. `album_id` AND `chart_position`)
 {
   "songs": [
     {
-      "id":2
+      "song_id":2
       "title": "Baby Shark",
       "artist_id": 4,
       "album_id": 3,
@@ -155,7 +153,7 @@ ADVANCED: Make this endpoint chainable (e.g. `album_id` AND `chart_position`)
 ```js
 {
   album: {
-    id: 'your new album id',
+    album_id: 'your new album id',
     title:'your added album title',
     artist_id: 'your added artist ID'
     added: true
