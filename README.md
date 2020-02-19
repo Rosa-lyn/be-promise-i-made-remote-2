@@ -45,14 +45,14 @@ To get started go to the [nc-spotify server](https://nc-spotify-jams.herokuapp.c
       "title": "Find No Enemy",
       "artist_id": 1,
       "album_id": 0,
-      "chart_position": 0
+      "current_chart_position": 0
     },
     {
       "song_id":2
       "title": "Baby Shark",
       "artist_id": 2,
       "album_id": 3,
-      "chart_position": 0
+      "current_chart_position": 0
     }...
 ```
 
@@ -80,7 +80,7 @@ ADVANCED: Make this endpoint chainable (e.g. `album_id` AND `chart_position`)
       "title": "Baby Shark",
       "artist_id": 4,
       "album_id": 3,
-      "chart_position": 0
+      "current_chart_position": 0
     }
   ]
 }
@@ -97,7 +97,7 @@ ADVANCED: Make this endpoint chainable (e.g. `album_id` AND `chart_position`)
     "title": "Find No Enemy",
     "artist_id": 1,
     "album_id": 1,
-    "chart_position": 5
+    "current_chart_position": 5
   }
 }
 ```
@@ -172,7 +172,7 @@ ADVANCED: Make this endpoint chainable (e.g. `album_id` AND `chart_position`)
 
 ```json
 {
-  "newPosition": 2
+  "current_position": 2
 }
 ```
 
@@ -187,7 +187,7 @@ Your client response should be formatted as the following:
     "title": "Single Ladies",
     "artist": "Beyonce",
     "album": 1,
-    "chart_position": 2
+    "current_chart_position": 2
   }
 }
 ```
@@ -213,7 +213,7 @@ Some example errors that could occur:
     "title": "Single Ladies",
     "artist_id": 2,
     "album_id": 2,
-    "chart_position": 2
+    "current_chart_position": 2
   },
   "lyrics": `"gettin' bodied\n(If you ready, get it ready) gettin' bodied\n(Let's get it and drop it) hey\nGive it up for my sister!\nAll right now\nEverybody put your hands together\nDo we have any single ladies in the house tonight?\nsing\nAll the single ladies (All the single ladies)\nAll the single ladies (All the single ladies)\nAll the s..."`
 }
@@ -227,7 +227,7 @@ Some example errors that could occur:
     "title": "Single Ladies",
     "artist": "Beyonce",
     "album": "I am Sasha Fierce",
-    "chart_position": 2
+    "current_chart_position": 2
   }
 }
 ```
@@ -247,13 +247,13 @@ Some example errors that could occur:
       "title": "Find No Enemy",
       "artist": "Akala",
       "album": "10 Years of Akala",
-      "chart_position": 0
+      "current_chart_position": 0
     },
     {
       "title": "Baby Shark",
       "artist": "Pinkfong",
       "album": "Youtube Best Hits",
-      "chart_position": 0
+      "current_chart_position": 0
     }
   ]
 }
