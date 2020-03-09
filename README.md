@@ -12,8 +12,6 @@ You should use Insomnia to make requests to your api and make sure you are sendi
 
 To get started go to the [nc-spotify server](https://nc-spotify-jams.herokuapp.com/) and get familiar with the endpoints available. On the site there is a readme to help navigate around the endpoints.
 
-
-
 ### 1. GET all albums
 
 - This route will not accept any queries.
@@ -67,12 +65,12 @@ Your endpoint should be able to accept the following queries:
 
 * _NOTE: treat this task as if you were using a production database with millions of entries. Be wary of fetching too much data just to filter it down. Consider what queries the server we are contacting can take._
 
-ADVANCED: Make this endpoint chainable (e.g. `album_id` AND `chart_position`)
+ADVANCED: Make this endpoint chainable (e.g. `album_id` AND `current_chart_position`)
 
 - _HINT: if are doing the advanced option have a look at the [axios documentation](https://github.com/axios/axios#example) for making requests with queries._
 
 ```js
-// ?album=3
+// ?album_id=3
 {
   "songs": [
     {
