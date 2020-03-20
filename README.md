@@ -169,7 +169,8 @@ ADVANCED: Make this endpoint chainable (e.g. `album_id` AND `current_chart_posit
     "album_id": 5,
     "title": "Excellent Album Title",
     "artist_id": 3,
-    "artwork": "https://bit.ly/2QAbhbA"
+    "artwork": "https://bit.ly/2QAbhbA",
+    "added": true
   }
 }
 ```
