@@ -1,12 +1,14 @@
 # Promises, Promises
 
-You are in charge of creating a new improved version of Spotify.
+You are in charge of creating a new, improved version of Spotify. 🎶
 
-You will be creating an api built upon "Spotify data". You will allow users to request songs and lyrics. You will also add some new services like analysing song lyrics and allowing users to place their favourite songs at number 1 in the charts. You will find that data which comes back from `nc-spotify-jams` will be in an overly complicated structure. You will need to ensure you are sending back the data in the correct format as written in this README.
+You will be creating an api built upon "Spotify data" which will allow users to request all kinds of information (song lyrics, album artworks, and more) about some of the greatest musical works of the modern era. You will also add some new services like analysing song lyrics, and allowing users to place their favourite songs at number 1 in the charts.
 
-To achieve this you have an api serving you Spotify data (our very own `nc-spotify`). This api serves up songs, albums, artists and more. You can use a variety of HTTP methods `GET`/`POST`/`PATCH` on these endpoints. You will build your own api that should interact with `nc-spotify-jams` using the promise based library [`axios`](https://github.com/axios/axios) to make http requests.
+To achieve this, you have an api serving you Spotify data (our very own `nc-spotify-jams`). This api serves up songs, albums, artists and more - all the info you'll need for _your_ api. You can use a variety of HTTP methods - `GET`/`POST`/`PATCH` - across the available endpoints on this api. The api that _you_ will build should interact with `nc-spotify-jams` by making requests to it using the promise-based library [`axios`](https://github.com/axios/axios).
 
-You should use Insomnia to make requests to your api and make sure you are sending back the appropriate responses.
+> You will find that the data which comes back from `nc-spotify-jams` will be in an overly-complicated structure. You will need to ensure you are **sending back the data in the correct format as written in this README.**
+
+When constructing your api, you should frequently check that your responses are in the appropriate by making requests to your API through Insomnia.
 
 ## DAY 1
 
@@ -15,9 +17,9 @@ To get started go to the [nc-spotify server](https://nc-spotify-jams.herokuapp.c
 ### 1. GET all albums
 
 - This route will not accept any queries.
-- Once you have the albums back from "Spotify" (AKA: `nc-spotify`), you will need to format the data so that your response fits the following format:
+- Once you have the albums back from "Spotify" (AKA: `nc-spotify-jams`), you will need to format the data so that your response fits the following format:
 
-```js
+```json
 {
   "albums": [
     {
@@ -35,23 +37,28 @@ To get started go to the [nc-spotify server](https://nc-spotify-jams.herokuapp.c
 
 ### 2.a GET all songs.
 
-```js
+- Again, ensure that the songs you respond with are formatted in the same way as outlined below:
+
+```json
 {
   "songs": [
     {
-      "song_id":1
+      "song_id": 1,
       "title": "Find No Enemy",
       "artist_id": 1,
       "album_id": 0,
       "current_chart_position": 0
     },
     {
-      "song_id":2
+      "song_id": 2,
       "title": "Baby Shark",
       "artist_id": 2,
       "album_id": 3,
       "current_chart_position": 0
-    }...
+    },
+    ...
+  ]
+}
 ```
 
 ### 2.b Add some extra functionality to this endpoint to allow the user to pass a query and therefore filter the results that are sent back.
@@ -69,16 +76,16 @@ ADVANCED: Make this endpoint chainable (e.g. `album_id` AND `current_chart_posit
 
 - _HINT: if are doing the advanced option have a look at the [axios documentation](https://github.com/axios/axios#example) for making requests with queries._
 
-```js
+```json
 // ?album_id=3
 {
   "songs": [
     {
-      "song_id":2
+      "song_id": 2,
       "title": "Baby Shark",
       "artist_id": 4,
       "album_id": 3,
-      "current_chart_position": 0
+      "current_chart_position": 22
     }
   ]
 }
@@ -88,7 +95,7 @@ ADVANCED: Make this endpoint chainable (e.g. `album_id` AND `current_chart_posit
 
 - This endpoint should take a _song id_ in the url as a parametric endpoint
 
-```js
+```json
 {
   "song": {
     "song_id": 1,
@@ -102,10 +109,10 @@ ADVANCED: Make this endpoint chainable (e.g. `album_id` AND `current_chart_posit
 
 ### 3b. If no track is found e.g. when you search for something that isn't already in the list of songs, send the client back a 404 HTTP status and response
 
-```js
+```json
 // status 404 and
 {
-  msg: 'Song not found';
+  "msg": "Song not found!";
 }
 ```
 
@@ -115,10 +122,10 @@ ADVANCED: Make this endpoint chainable (e.g. `album_id` AND `current_chart_posit
 - _HINT: to request the lyrics you must know the song's id first_
 - This endpoint should also include the song title onto the response body
 
-```js
+```json
 {
-  song: `Baby Shark`,
-  lyrics: `....`
+  "song": "Baby Shark",
+  "lyrics": "Baby Shark, doo doo doo doo..."
 }
 ```
 
@@ -127,7 +134,7 @@ ADVANCED: Make this endpoint chainable (e.g. `album_id` AND `current_chart_posit
 - This endpoint should take a _song title_ in the url as a parametric endpoint
 - _HINT: to request a song's analysis of you must know the song's id first_
 
-```js
+```json
 {
   "song": "Single Ladies",
   "analysis": {
@@ -140,26 +147,29 @@ ADVANCED: Make this endpoint chainable (e.g. `album_id` AND `current_chart_posit
 
 ### 6. POST an album
 
-- This endpoint should take an album title and an artist's id on the request body e.g.
+- This endpoint should take an album title, an artist_id, and a string of the album artwork on the request body, i.e. it must be of the form:
 
 ```json
 {
-  "title": "your new album title",
-  "artist_id": "your new artist ID"
+  "title": "Excellent Album Title",
+  "artist_id": 3,
+  "artwork": "https://bit.ly/2QAbhbA"
 }
 ```
 
 - You should validate information from the user is correct before posting. If things go terribly wrong tutors can reset the database from scratch so let them know!
 
+- **NOTE**: the `artist_id` must be one that already exists on the api. Otherwise you will get an error!
+
 - You should send an appropriate status code to the client with a response like below:
 
-```js
+```json
 {
-  album: {
-    album_id: 'your new album id',
-    title:'your added album title',
-    artist_id: 'your added artist ID'
-    added: true
+  "album": {
+    "album_id": 5,
+    "title": "Excellent Album Title",
+    "artist_id": 3,
+    "artwork": "https://bit.ly/2QAbhbA"
   }
 }
 ```
@@ -170,16 +180,16 @@ ADVANCED: Make this endpoint chainable (e.g. `album_id` AND `current_chart_posit
 
 ```json
 {
-  "current_position": 2
+  "current_chart_position": 2
 }
 ```
 
-- _HINT: to use `patch` on `nc-spotify`, you must use a parametric request (:id) and not a query_
-- _HINT: on success the `nc-spotify` responds with the updated object_
+- _HINT: to use `patch` on `nc-spotify-jams`, you must use a parametric request (:id) and not a query_
+- _HINT: on success the `nc-spotify-jams` responds with the updated object_
 
-Your client response should be formatted as the following:
+Your client response should be formatted as such:
 
-```js
+```json
 {
   "song": {
     "title": "Single Ladies",
@@ -205,7 +215,7 @@ Some example errors that could occur:
 
 ### 2. Refactor getting a song's lyrics (Day 1 task 4) to send the song object and its lyrics all at once to send together on the response in the following format:
 
-```js
+```json
 {
   "song": {
     "title": "Single Ladies",
@@ -213,13 +223,13 @@ Some example errors that could occur:
     "album_id": 2,
     "current_chart_position": 2
   },
-  "lyrics": `"gettin' bodied\n(If you ready, get it ready) gettin' bodied\n(Let's get it and drop it) hey\nGive it up for my sister!\nAll right now\nEverybody put your hands together\nDo we have any single ladies in the house tonight?\nsing\nAll the single ladies (All the single ladies)\nAll the single ladies (All the single ladies)\nAll the s..."`
+  "lyrics": "gettin' bodied\n(If you ready, get it ready) gettin' bodied..."
 }
 ```
 
 ### 3. Refactor getting a song by its id (Day 1 task 3) to replace the album ID with the album title and artist ID with artist name, like so:
 
-```js
+```json
 {
   "song": {
     "title": "Single Ladies",
@@ -236,9 +246,9 @@ Some example errors that could occur:
 
 - _HINT: this endpoint should make use of `fs` and the `Promise` constructor_
 
-### 4.b (Optional) extra ADVANCED - get all songs and replace all album numbers with album titles
+### 4.b ADVANCED - get all songs and replace all album IDs with album titles and artist IDs with artists like so:
 
-```js
+```json
 {
   "songs": [
     {
@@ -252,7 +262,8 @@ Some example errors that could occur:
       "artist": "Pinkfong",
       "album": "Youtube Best Hits",
       "current_chart_position": 0
-    }
+    },
+    ...
   ]
 }
 ```
