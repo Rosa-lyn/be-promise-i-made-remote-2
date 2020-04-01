@@ -208,7 +208,7 @@ Some example errors that could occur:
 - `GET /api/tracks/track_that_doesnt_exist` - 404
 - POST or PATCH with incorrect information on the request body: Wrong/missing keys and/or incorrect values!
 
-## DAY 2 - Using Promise.all
+## Using Promise.all
 
 ### 1. Refactor GET analysis for a song (Day 1 task 5) to get both the lyrics **and** the analysis.
 
