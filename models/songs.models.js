@@ -4,25 +4,26 @@ const fetchAllSongs = () => {
   return axios
     .get("https://nc-spotify-jams.herokuapp.com/api/songs")
     .then((result) => {
-      const formattedSongs = [];
-      result.data.songs.forEach((song) => {
-        const returnSong = {};
-        returnSong.song_id = song.song_id;
-        returnSong.title = song.title["en-GB"];
-        returnSong.artist_id = song.artist_id;
-        returnSong.album_id = song.album_id;
-        returnSong.current_chart_position = song.chart_position.current;
-        formattedSongs.push(returnSong);
-      });
+      const formattedSongs = result.data.songs.map(
+        ({ title, chart_position, ...song }) => {
+          song.title = title["en-GB"];
+          song.current_chart_position = chart_position.current;
+          return song;
+        }
+      );
       return formattedSongs;
     })
     .catch((err) => {
-      let error = {};
+      const error = {};
       error.status = err.response.status;
       error.msg = err.response.statusText;
       console.log({ error });
     });
 };
+
+// const fetchMatchingSongs = () => {
+
+// }
 
 module.exports = { fetchAllSongs };
 

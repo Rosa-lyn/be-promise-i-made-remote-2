@@ -14,7 +14,7 @@ const fetchAllAlbums = () => {
       return formattedAlbums;
     })
     .catch((err) => {
-      let error = {};
+      const error = {};
       error.status = err.response.status;
       error.msg = err.response.statusText;
       console.log({ error });
