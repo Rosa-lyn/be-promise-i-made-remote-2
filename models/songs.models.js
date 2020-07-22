@@ -21,8 +21,9 @@ const fetchAllSongs = () => {
     });
 };
 
-const fetchMatchingSongs = (key, value) => {
-  const searchString = `https://nc-spotify-jams.herokuapp.com/api/songs?${key}=${value}`;
+const fetchMatchingSongs = (keyArr, valuesArr) => {
+  const searchString = `https://nc-spotify-jams.herokuapp.com/api/songs?${keyArr[0]}=${valuesArr[0]}`;
+
   return axios.get(searchString).then((result) => {
     const formattedSongs = result.data.songs.map(
       ({ title, chart_position, ...song }) => {
@@ -31,18 +32,14 @@ const fetchMatchingSongs = (key, value) => {
         return song;
       }
     );
-    return formattedSongs;
+    if (keyArr.length === 1) return formattedSongs;
+    else if (keyArr.length === 2) {
+      const filteredArray = formattedSongs.filter((song) => {
+        return song[keyArr[1]] == valuesArr[1];
+      });
+      return filteredArray;
+    }
   });
 };
 
 module.exports = { fetchAllSongs, fetchMatchingSongs };
-
-/* 
-{
-    song_id: 1,
-    title: { 'en-GB': 'Find No Enemy' },
-    artist_id: 2,
-    album_id: 1,
-    chart_position: { current: 5, entered_at: 5 }
-  },
-  */
