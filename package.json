@@ -4,7 +4,7 @@
   "description": "a spotify themed sprint to practice using promises and third party apis",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon server.js"
+    "dev": "nodemon listener.js"
   },
   "keywords": [],
   "author": "",
