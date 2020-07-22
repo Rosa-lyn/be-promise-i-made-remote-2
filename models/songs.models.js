@@ -21,11 +21,21 @@ const fetchAllSongs = () => {
     });
 };
 
-// const fetchMatchingSongs = () => {
+const fetchMatchingSongs = (key, value) => {
+  const searchString = `https://nc-spotify-jams.herokuapp.com/api/songs?${key}=${value}`;
+  return axios.get(searchString).then((result) => {
+    const formattedSongs = result.data.songs.map(
+      ({ title, chart_position, ...song }) => {
+        song.title = title["en-GB"];
+        song.current_chart_position = chart_position.current;
+        return song;
+      }
+    );
+    return formattedSongs;
+  });
+};
 
-// }
-
-module.exports = { fetchAllSongs };
+module.exports = { fetchAllSongs, fetchMatchingSongs };
 
 /* 
 {

@@ -1,10 +1,20 @@
-const { fetchAllSongs } = require("../models/songs.models");
+const { fetchAllSongs, fetchMatchingSongs } = require("../models/songs.models");
 
 const getAllSongs = (req, res) => {
-  console.log(req);
-  fetchAllSongs().then((songs) => {
+  //console.log(req);
+  const queriesArr = Object.keys(req.query);
+  //   queriesArr.forEach((key) => {
+  const value = req.query[queriesArr[0]].replace(" ", "%20");
+  //   console.log(value);
+  fetchMatchingSongs(queriesArr[0], value).then((songs) => {
     res.send({ songs });
   });
+  //   });
+  if (queriesArr.length === 0) {
+    fetchAllSongs().then((songs) => {
+      res.send({ songs });
+    });
+  }
 };
 
 // const getMatchingTitles = (req, res) => {
