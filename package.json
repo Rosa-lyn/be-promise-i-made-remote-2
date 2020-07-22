@@ -3,10 +3,25 @@
   "version": "1.0.0",
   "description": "a spotify themed sprint to practice using promises and third party apis",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "dev": "nodemon server.js"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {},
-  "devDependencies": {}
+  "dependencies": {
+    "axios": "^0.19.2",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/samstyles84/be-promise-i-made-remote.git"
+  },
+  "bugs": {
+    "url": "https://github.com/samstyles84/be-promise-i-made-remote/issues"
+  },
+  "homepage": "https://github.com/samstyles84/be-promise-i-made-remote#readme"
 }
