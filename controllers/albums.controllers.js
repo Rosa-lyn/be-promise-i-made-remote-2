@@ -1,5 +1,3 @@
-//require in the models
-
 const { fetchAllAlbums } = require("../models/albums.models.js");
 
 const getAllAlbums = (req, res) => {
