@@ -4,6 +4,10 @@ const app = express();
 
 app.use("/api", apiRouter);
 
+app.use((err, req, res, next) => {
+  res.status(err.response.status).send({ msg: err.response.statusText });
+});
+
 module.exports = app;
 
 /*

@@ -19,22 +19,17 @@ const fetchAllSongs = ({
         }
       );
       return formattedSongs;
-    })
-    .catch((err) => {
-      const error = {};
-      error.status = err.response.status;
-      error.msg = err.response.statusText;
-      console.log({ error });
     });
 };
 
 const fetchSongById = (song_id) => {
-  // console.log(song_id, "song_id");
-  axios
+  return axios
     .get(`https://nc-spotify-jams.herokuapp.com/api/songs/${song_id}`)
-    .then((song) => {
-      console.log(song.data);
-      return song.data;
+    .then((result) => {
+      const { title, chart_position, ...song } = result.data.song;
+      song.title = title["en-GB"];
+      song.current_chart_position = chart_position.current;
+      return song;
     });
 };
 
