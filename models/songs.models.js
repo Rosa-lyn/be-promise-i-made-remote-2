@@ -1,8 +1,15 @@
 const axios = require("axios");
 
-const fetchAllSongs = () => {
+const fetchAllSongs = ({
+  title,
+  artist_id,
+  album_id,
+  current_chart_position,
+}) => {
   return axios
-    .get("https://nc-spotify-jams.herokuapp.com/api/songs")
+    .get(`https://nc-spotify-jams.herokuapp.com/api/songs`, {
+      params: { title, artist_id, album_id, current_chart_position },
+    })
     .then((result) => {
       const formattedSongs = result.data.songs.map(
         ({ title, chart_position, ...song }) => {
@@ -21,25 +28,14 @@ const fetchAllSongs = () => {
     });
 };
 
-const fetchMatchingSongs = (keyArr, valuesArr) => {
-  const searchString = `https://nc-spotify-jams.herokuapp.com/api/songs?${keyArr[0]}=${valuesArr[0]}`;
-
-  return axios.get(searchString).then((result) => {
-    const formattedSongs = result.data.songs.map(
-      ({ title, chart_position, ...song }) => {
-        song.title = title["en-GB"];
-        song.current_chart_position = chart_position.current;
-        return song;
-      }
-    );
-    if (keyArr.length === 1) return formattedSongs;
-    else if (keyArr.length === 2) {
-      const filteredArray = formattedSongs.filter((song) => {
-        return song[keyArr[1]] == valuesArr[1];
-      });
-      return filteredArray;
-    }
-  });
+const fetchSongById = (song_id) => {
+  // console.log(song_id, "song_id");
+  axios
+    .get(`https://nc-spotify-jams.herokuapp.com/api/songs/${song_id}`)
+    .then((song) => {
+      console.log(song.data);
+      return song.data;
+    });
 };
 
-module.exports = { fetchAllSongs, fetchMatchingSongs };
+module.exports = { fetchAllSongs, fetchSongById };
